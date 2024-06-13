@@ -17,10 +17,10 @@ class Move(Enum):
 
     @staticmethod
     def sanitize_string(s):
-        sanitized_move = re.sub(r"[^a-zA-Z]", "", s).lower()
+        sanitized_move = re.sub(r"[^a-zA-Z]", "", s).upper()
 
         try:
-            return Move[sanitized_move.upper()]
+            return Move[sanitized_move]
         except KeyError:
             raise ValueError(f"Invalid move, '{s}'. Choose 'rock', 'paper', or 'scissors'.")
 
@@ -34,7 +34,7 @@ def winner(player_1, player_2):
         player_1_move = Move.sanitize_string(player_1)
         player_2_move = Move.sanitize_string(player_2)
     except ValueError as e:
-        raise ValueError(f"Invalid move. {e}")
+        raise ValueError(e)
 
     if player_1_move == player_2_move:
         return "It's a tie!"
